@@ -339,9 +339,14 @@ const startCreating = async () => {
   let editionCount = 1;
   let failedCount = 0;
   let abstractedIndexes = [];
+  let totalAbstractedIndexes = 0;
+  
+  for (let a = 0; a < layerConfigurations.length; a++) {
+    totalAbstractedIndexes += layerConfigurations[a].growEditionSizeTo;
+  }
   for (
     let i = network == NETWORK.sol ? 0 : 1;
-    i <= layerConfigurations[layerConfigurations.length - 1].growEditionSizeTo;
+    i <= totalAbstractedIndexes;
     i++
   ) {
     abstractedIndexes.push(i);
@@ -424,6 +429,7 @@ const startCreating = async () => {
         }
       }
     }
+    editionCount = 1;
     layerConfigIndex++;
   }
   writeMetaData(JSON.stringify(metadataList, null, 2));
